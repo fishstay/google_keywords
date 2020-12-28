@@ -1,0 +1,7 @@
+streamlit==0.73.0
+requests==2.23.0
+fake_useragent==0.1.11
+igviz==0.4.0
+numpy==1.18.1
+pandas==1.1.1
+networkx==2.4
