@@ -51,30 +51,33 @@ if st.button('我已輸入完成'):
 
 	df = pd.DataFrame(data, columns=['第一層預測字', '第二層預測字'])
 
-	G = nx.Graph()
+	if len(df) > 0:
 
-	for i in range(len(df)):
-		G.add_edge(df.iloc[i]['第一層預測字'], df.iloc[i]['第二層預測字'])
+		G = nx.Graph()
 
-	for j in df.第一層預測字.unique():
-		G.add_edge(keyword, j)
+		for i in range(len(df)):
+			G.add_edge(df.iloc[i]['第一層預測字'], df.iloc[i]['第二層預測字'])
 
-	name_dict = {}
+		for j in df.第一層預測字.unique():
+			G.add_edge(keyword, j)
 
-	for node in G.nodes():
-		if ((node in df.第一層預測字.tolist()) or (node == keyword)):
-			name_dict[node] = node
-		else: 
-			name_dict[node] = ''
+		name_dict = {}
 
-	nx.set_node_attributes(G, name_dict, 'name')
+		for node in G.nodes():
+			if ((node in df.第一層預測字.tolist()) or (node == keyword)):
+				name_dict[node] = node
+			else: 
+				name_dict[node] = ''
 
-	fig = ig.plot(G,
-				  node_label = 'name',
-				  layout = 'kamada'
-				 )
+		nx.set_node_attributes(G, name_dict, 'name')
 
-	st.write(fig)
-	st.table(df)
+		fig = ig.plot(G,
+					  node_label = 'name',
+					  layout = 'kamada'
+					 )
 
-	
+		st.write(fig)
+		st.table(df)
+
+	else:
+		st.header('抱歉，沒有資料！')
